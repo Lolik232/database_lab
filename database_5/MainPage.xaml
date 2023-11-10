@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="database_5.MainPage"
+             xmlns:viewmodel="clr-namespace:database_5.ViewModels"
+             xmlns:models="clr-namespace:DAL.Entities;assembly=DAL.Entities"
+             x:DataType="viewmodel:ShopListViewModel"
+             MinimumWidthRequest="350">
+    
+    <ScrollView>
+        <FlexLayout     
+                    Direction="Row" 
+                    Wrap="Wrap"
+                    JustifyContent="Start"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"
+                    BindableLayout.ItemsSource="{Binding Shops}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Shop}" >
+                    <Frame WidthRequest="300" 
+                           HeightRequest="420"
+                           CornerRadius="15"
+                           Margin="5"
+                           Padding="10">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Path=ShopSelectedCommand, 
+                                Source={RelativeSource AncestorType={x:Type viewmodel:ShopListViewModel}}}" >
+                            </TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout  HorizontalOptions="Center"
+                                                    Margin="0,0,0,10">
+                                <Label Text="{Binding Name}" FontSize="14" />
+                            </HorizontalStackLayout>
+
+                            <Frame  HorizontalOptions="Fill"
+                                    Padding="0"
+                                    VerticalOptions="Center" 
+                                    CornerRadius="15">
+                                <Image  VerticalOptions="Center" 
+                                        HorizontalOptions="Center" 
+                                        Aspect="Fill"
+                                        Source="magnit_logo.jpg" />
+                            </Frame>
+
+                            <HorizontalStackLayout Margin="0,10,0, 0">
+                                <Label  Margin="0,0,10,0" Text="Адрес"/>
+                                <Label Text="{Binding Address}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </ScrollView>
+</ContentPage>

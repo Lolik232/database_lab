@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="database_5.ShopProductList"
+             Title="Список продуктов в магазине"
+             xmlns:viewmodel="clr-namespace:database_5.ViewModels"
+             xmlns:models="clr-namespace:DAL.Entities;assembly=DAL.Entities"
+             x:DataType="viewmodel:ShopProductListViewModel"
+             MinimumWidthRequest="350"
+             >
+
+    <VerticalStackLayout>
+        <Button Text="Рейтинг товаров" Command="{Binding GoToRatingCommand}"></Button>
+
+        <ListView HasUnevenRows="True"
+           ItemsSource="{Binding Shop.ProductStocks}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:ProductStock}">
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Frame Margin="5,0,5,10"
+                            CornerRadius="15"
+                            BackgroundColor ="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource White}}" >
+                                <StackLayout Margin="5"
+                                      Padding="5">
+                                    <Label Text="{Binding Product.Name}" 
+                                    FontSize="14" />
+
+                                    <HorizontalStackLayout>
+                                        <Label Text="Кол-во товара:" 
+                                        Margin="0,0,10,0"
+                                        FontSize="16" />
+                                        <Label Text="{Binding Count}" 
+                                        FontSize="16" />
+                                    </HorizontalStackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </VerticalStackLayout>
+
+
+</ContentPage>
